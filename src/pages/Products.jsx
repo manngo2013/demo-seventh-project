@@ -2,8 +2,36 @@ import React, { Component } from "react";
 import { FaBriefcase, FaHome } from "react-icons/fa";
 import "./products.scss";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import axios from "axios";
+import { connect } from "react-redux";
+import { fetchProducts } from "../actions/productActions";
+import ProductList from "../components/ProductList";
 
 class Products extends Component {
+  /*state = {
+    products: [],
+  };
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  async getProducts() {
+    const apiUrl = "http://localhost:4000/products";
+
+    try {
+      const res = await axios.get(apiUrl);
+      const products = res && res.data ? res.data : [];
+      this.setState({ products: products });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }*/
+
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
+
   render() {
     return (
       <div>
@@ -56,30 +84,10 @@ class Products extends Component {
             </Col>
           </Row>
           <Row>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Content</th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </Table>
+            <ProductList
+              loading={this.props.loading}
+              products={this.props.products}
+            />
           </Row>
         </div>
       </div>
@@ -87,4 +95,17 @@ class Products extends Component {
   }
 }
 
-export default Products;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.productReducer.loading,
+    products: state.productReducer.products,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProducts: () => dispatch(fetchProducts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
