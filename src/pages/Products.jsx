@@ -6,6 +6,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { fetchProducts } from "../actions/productActions";
 import ProductList from "../components/ProductList";
+import { Link } from "react-router-dom";
 
 class Products extends Component {
   /*state = {
@@ -61,7 +62,9 @@ class Products extends Component {
           </Row>
           <Row>
             <Col className="d-flex flex-row-reverse">
-              <Button variant="info">Add New Product</Button>
+              <Link to="/create-product">
+                <Button variant="info">Add New Product</Button>
+              </Link>
             </Col>
           </Row>
           <Row>

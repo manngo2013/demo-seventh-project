@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import store from './config/store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Products from './pages/Products';
+import AddProduct from './pages/AddProduct';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Routes>
           <Route path='/' Component={App} />
           <Route path='/manage-product' Component={Products} />
+          <Route path='/create-product' Component={AddProduct} />
         </Routes>
       </BrowserRouter>
     </Provider>
