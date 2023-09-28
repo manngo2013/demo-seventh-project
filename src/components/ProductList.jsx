@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
+import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default class ProductList extends Component {
   render() {
@@ -29,7 +31,14 @@ export default class ProductList extends Component {
                 <td>{product.content}</td>
                 <td>{product.categoryName}</td>
                 <td>{product.status}</td>
-                <td></td>
+                <td>
+                  <Link to={`/update-product/${product.id}`}>
+                    <Button variant="primary">
+                      <FaEdit />
+                      <span>Edit</span>
+                    </Button>
+                  </Link>
+                </td>
               </tr>
             );
           })}

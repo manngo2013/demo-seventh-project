@@ -9,6 +9,7 @@ import store from './config/store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Products from './pages/Products';
 import AddProduct from './pages/AddProduct';
+import UpdateProduct from './pages/UpdateProduct';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
           <Route path='/' Component={App} />
           <Route path='/manage-product' Component={Products} />
           <Route path='/create-product' Component={AddProduct} />
+          <Route path='/update-product/:productId' Component={UpdateProduct} />
         </Routes>
       </BrowserRouter>
     </Provider>
