@@ -4,7 +4,7 @@ import "./products.scss";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import axios from "axios";
 import { connect } from "react-redux";
-import { fetchProducts } from "../actions/productActions";
+import { deleteProduct, fetchProducts } from "../actions/productActions";
 import ProductList from "../components/ProductList";
 import { Link } from "react-router-dom";
 
@@ -90,6 +90,7 @@ class Products extends Component {
             <ProductList
               loading={this.props.loading}
               products={this.props.products}
+              deleteProduct={this.props.deleteProduct}
             />
           </Row>
         </div>
@@ -108,6 +109,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
+    deleteProduct: (id) => dispatch(deleteProduct(id)),
   };
 };
 

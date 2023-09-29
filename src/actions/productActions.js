@@ -3,7 +3,8 @@ import {
   FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE,
   CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAILURE,
   FETCH_PRODUCT_REQUEST, FETCH_PRODUCT_SUCCESS, FETCH_PRODUCT_FAILURE,
-  UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE
+  UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE,
+  DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE
 } from '../actions/products/productTypes';
 
 const fetchProductsRequest = () => {
@@ -77,6 +78,38 @@ const updateProductFailure = (error) => {
   return {
     type: UPDATE_PRODUCT_FAILURE,
     payload: error,
+  }
+}
+
+const deleteProductSuccess = () => {
+  return {
+    type: DELETE_PRODUCT_SUCCESS,
+  }
+}
+
+const deleteProductFailure = () => {
+  return {
+    type: DELETE_PRODUCT_FAILURE,
+  }
+}
+
+export const deleteProduct = (id) => {
+  return async (dispatch) => {
+    const apiUrl = `http://localhost:4000/products/${id}`;
+
+    try {
+      const res = await axios.delete(apiUrl);
+      if (res && res?.status === 200) {
+        dispatch(deleteProductSuccess());
+        setTimeout(() => {
+          dispatch(fetchProducts());
+        }, 500)
+      } else {
+        dispatch(deleteProductFailure());
+      }
+    } catch (error) {
+      dispatch(deleteProductFailure());
+    }
   }
 }
 

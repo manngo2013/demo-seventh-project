@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { Button, Table } from "react-bootstrap";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default class ProductList extends Component {
+  handleDeleteProduct(product) {
+    if (window.confirm("Are you sure want to delete this item")) {
+      // fire action
+      this.props.deleteProduct(product.id);
+    }
+  }
+
   render() {
     if (this.props.loading === true) {
       return <div>Loading data....</div>;
@@ -37,7 +44,14 @@ export default class ProductList extends Component {
                       <FaEdit />
                       <span>Edit</span>
                     </Button>
-                  </Link>
+                  </Link>{" "}
+                  <Button
+                    variant="danger"
+                    onClick={() => this.handleDeleteProduct(product)}
+                  >
+                    <FaTrash />
+                    <span>Delete</span>
+                  </Button>
                 </td>
               </tr>
             );

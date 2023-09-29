@@ -2,7 +2,8 @@ import {
   FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_FAILURE,
   CREATE_PRODUCT_REQUEST, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_FAILURE,
   FETCH_PRODUCT_REQUEST, FETCH_PRODUCT_SUCCESS, FETCH_PRODUCT_FAILURE,
-  UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE
+  UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILURE,
+  DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE
 } from '../actions/products/productTypes';
 
 const initState = {
@@ -78,6 +79,10 @@ const productReducer = (state = initState, action) => {
         updateSuccess: false,
         updateErrorMsg: action.payload,
       };
+    case DELETE_PRODUCT_SUCCESS:
+      return state;
+    case DELETE_PRODUCT_FAILURE:
+      return state;
     default:
       return state;
   }
