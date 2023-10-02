@@ -163,10 +163,11 @@ export const createProduct = (product) => {
   }
 }
 
-export const fetchProducts = () => {
+export const fetchProducts = (status) => {
   return async (dispatch) => {
     dispatch(fetchProductsRequest);
-    const apiUrl = "http://localhost:4000/products";
+    const url = "http://localhost:4000/products";
+    const apiUrl = status === undefined ? url : url + `?status=${status}`;
 
     try {
       const res = await axios.get(apiUrl);

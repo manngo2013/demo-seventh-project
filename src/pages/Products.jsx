@@ -33,6 +33,25 @@ class Products extends Component {
     this.props.fetchProducts();
   }
 
+  handleShowAll() {
+    this.props.fetchProducts();
+  }
+
+  handleShowNew() {
+    let status = "new";
+    this.props.fetchProducts(status);
+  }
+
+  handleShowActive() {
+    let status = "active";
+    this.props.fetchProducts(status);
+  }
+
+  handleShowInActive() {
+    let status = "inActive";
+    this.props.fetchProducts(status);
+  }
+
   render() {
     return (
       <div>
@@ -69,10 +88,21 @@ class Products extends Component {
           </Row>
           <Row>
             <Col>
-              <Button variant="primary">All</Button>{" "}
-              <Button variant="success">New</Button>{" "}
-              <Button variant="primary">Active</Button>{" "}
-              <Button variant="secondary">InActive</Button>{" "}
+              <Button variant="primary" onClick={() => this.handleShowAll()}>
+                All
+              </Button>{" "}
+              <Button variant="success" onClick={() => this.handleShowNew()}>
+                New
+              </Button>{" "}
+              <Button variant="primary" onClick={() => this.handleShowActive()}>
+                Active
+              </Button>{" "}
+              <Button
+                variant="secondary"
+                onClick={() => this.handleShowInActive()}
+              >
+                InActive
+              </Button>{" "}
             </Col>
             <Col>
               <Form className="d-flex">
@@ -108,7 +138,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchProducts: () => dispatch(fetchProducts()),
+    fetchProducts: (status) => dispatch(fetchProducts(status)),
     deleteProduct: (id) => dispatch(deleteProduct(id)),
   };
 };
