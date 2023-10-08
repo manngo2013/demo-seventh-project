@@ -178,3 +178,18 @@ export const fetchProducts = (status) => {
     }
   }
 }
+
+export const fetchProductsBySearchText = (searchText) => {
+  return async (dispatch) => {
+    dispatch(fetchProductsRequest);
+    const apiUrl = `http://localhost:4000/products?q=${searchText}`;
+
+    try {
+      const res = await axios.get(apiUrl);
+      const products = res && res.data ? res.data : [];
+      dispatch(fetchProductsSuccess(products));
+    } catch (error) {
+      dispatch(fetchProductsFailure(error));
+    }
+  }
+}

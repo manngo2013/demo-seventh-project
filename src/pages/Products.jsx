@@ -4,11 +4,18 @@ import "./products.scss";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import axios from "axios";
 import { connect } from "react-redux";
-import { deleteProduct, fetchProducts } from "../actions/productActions";
+import {
+  deleteProduct,
+  fetchProducts,
+  fetchProductsBySearchText,
+} from "../actions/productActions";
 import ProductList from "../components/ProductList";
 import { Link } from "react-router-dom";
 
 class Products extends Component {
+  state = {
+    searchText: "",
+  };
   /*state = {
     products: [],
   };
@@ -50,6 +57,12 @@ class Products extends Component {
   handleShowInActive() {
     let status = "inActive";
     this.props.fetchProducts(status);
+  }
+
+  handleSearch() {
+    //alert(`Search Text: ${this.state.searchText}`);
+    //fire action
+    this.props.fetchProductsBySearchText(this.state.searchText);
   }
 
   render() {
@@ -111,8 +124,17 @@ class Products extends Component {
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
+                  value={this.state.searchText}
+                  onChange={(event) =>
+                    this.setState({ searchText: event.target.value })
+                  }
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button
+                  variant="outline-success"
+                  onClick={() => this.handleSearch()}
+                >
+                  Search
+                </Button>
               </Form>
             </Col>
           </Row>
@@ -140,6 +162,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: (status) => dispatch(fetchProducts(status)),
     deleteProduct: (id) => dispatch(deleteProduct(id)),
+    fetchProductsBySearchText: (searchText) =>
+      dispatch(fetchProductsBySearchText(searchText)),
   };
 };
 
